@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #C2410C;
+  --accent: #F59E0B;
+  --junina-red: #9F1239;
+  --junina-yellow: #EAB308;
+  --wood: #78350F;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Custom Styles */
+.glass {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+}
+
+.product-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.product-card.selected {
+  border-color: #9F1239;
+  box-shadow: 0 0 0 3px rgba(159, 18, 57, 0.1);
+}
+
+.input-focus {
+  transition: all 0.2s ease;
+}
+
+.input-focus:focus {
+  border-color: #9F1239;
+  box-shadow: 0 0 0 3px rgba(159, 18, 57, 0.1);
+  outline: none;
+}
