@@ -6,8 +6,8 @@ import { createClient } from '@supabase/supabase-js';
 // ==========================================
 // 🔴 COLE SUAS CHAVES DO SUPABASE AQUI EMBAIXO:
 // ==========================================
-const SUPABASE_URL = "COLE_AQUI_A_SUA_API_URL";
-const SUPABASE_KEY = "COLE_AQUI_A_SUA_ANON_PUBLIC_KEY";
+const SUPABASE_URL = "https://nsrnmbyfhkflnvfvgkye.supabase.co/rest/v1/";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zcm5tYnlmaGtmbG52ZnZna3llIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNjkxNjIsImV4cCI6MjA5Njg0NTE2Mn0.pXiMJ1ZZa2vELxX4jJ6QTzHongRKk6RTtXPDgx36HVo";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
