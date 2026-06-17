@@ -60,9 +60,39 @@ function App() {
   const [adminTab, setAdminTab] = useState<'pendentes' | 'entregues'>('pendentes');
   const [isLoading, setIsLoading] = useState(false);
 
-  // ESCUTAR O BANCO EM TEMPO REAL QUANDO O ADMIN LOGAR
+    // ESCUTAR O BANCO EM TEMPO REAL QUANDO O ADMIN LOGAR
   useEffect(() => {
     if (!isAdminLogged) return;
+
+    // Busca os pedidos que já existem no banco
+    fetchOrders();
+
+    // Cria o canal para ouvir novos pedidos (INSERT) e mudanças de status (UPDATE)
+    const canalPedidos = supabase
+      .channel('mudancas-pedidos-realtime')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'pedidos' },
+        (payload: any) => { // ⬅️ Adicionado ": any" aqui para corrigir o erro do TS
+          if (payload.eventType === 'INSERT') {
+            setAllOrders((pedidosAtuais) => [payload.new as Order, ...pedidosAtuais]);
+          } else if (payload.eventType === 'UPDATE') {
+            setAllOrders((pedidosAtuais) =>
+              pedidosAtuais.map((pedido) =>
+                pedido.id === payload.new.id ? (payload.new as Order) : pedido
+              )
+            );
+          }
+        }
+      )
+      .subscribe();
+
+    // Fecha a conexão com o canal ao deslogar ou fechar a página
+    return () => {
+      supabase.removeChannel(canalPedidos);
+    };
+  }, [isAdminLogged]);
+
 
     // Busca os pedidos que já existem no banco
     fetchOrders();
